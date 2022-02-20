@@ -1,0 +1,117 @@
+{
+	"info": {
+		"_postman_id": "8c0d5798-e10e-4493-8977-5a3a01f8ec88",
+		"name": "TestAssessment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Gender by Name",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.variables.set(\"sample_name\", pm.variables.replaceIn('{{$randomFirstName}}'));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"helper.checkStatus(200, pm, responseBody);\r",
+							"\r",
+							"const schema=\r",
+							"{\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"name\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"gender\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"probability\": {\r",
+							"      \"type\": \"number\"\r",
+							"    },\r",
+							"    \"count\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"name\",\r",
+							"    \"gender\",\r",
+							"    \"probability\",\r",
+							"    \"count\"\r",
+							"  ],\r",
+							"  \"additionalProperties\":false\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Validating schema\",() =>{\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}?name={{sample_name}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{sample_name}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"helper = {",
+					"   ",
+					"    checkStatus(expectedStatus, pm, responseBody) {",
+					"        assert = `Status code must be ${expectedStatus}`;",
+					"        pm.test(assert, function () {",
+					"            failed = true;",
+					"            pm.response.to.have.status(expectedStatus);",
+					"            failed = false;",
+					"        });",
+					"        if (failed) {",
+					"            var resp = JSON.parse(responseBody);",
+					"            throw new Error(\"Unexpected response: \" + JSON.stringify(resp));",
+					"        }",
+					"    }",
+					"   ",
+					"",
+					"};",
+					"",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

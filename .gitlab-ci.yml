@@ -1,0 +1,11 @@
+stages:
+  - test
+
+newman_tests:
+  stage: test
+  image:
+    name: postman/newman
+    entrypoint: [""]
+  script:
+    - newman --version
+    - newman run ./tests/TestAssessment.postman_collection.json -e ./tests/TestAssessment.postman_environment.json
