@@ -6,74 +6,433 @@
 	},
 	"item": [
 		{
-			"name": "Gender by Name",
-			"event": [
+			"name": "Find Gender by Name",
+			"item": [
 				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"pm.variables.set(\"sample_name\", pm.variables.replaceIn('{{$randomFirstName}}'));"
-						],
-						"type": "text/javascript"
-					}
+					"name": "Find Gender Name",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//pm.variables.set(\"sample_name\", pm.variables.replaceIn('{{$randomFirstName}}'));\r",
+									"pm.collectionVariables.set(\"name\", pm.iterationData.get(\"Name\"));\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"helper.checkStatus(200, pm, responseBody);\r",
+									"helper.logGenderdetails(pm, responseBody) ;\r",
+									"\r",
+									"// pm.test(\"Validate body elemets\", function () {\r",
+									"//     pm.expect(pm.response.text()).to.include(pm.iterationData.get(\"Name\"));\r",
+									"// });\r",
+									"\r",
+									"const schema=\r",
+									"{\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"gender\": { \"type\": [ \"string\", \"null\" ] },\r",
+									"    \"probability\": {\r",
+									"      \"type\": \"number\"\r",
+									"    },\r",
+									"    \"count\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"name\",\r",
+									"    \"gender\",\r",
+									"    \"probability\",\r",
+									"    \"count\"\r",
+									"  ],\r",
+									"  \"additionalProperties\":false\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Validating schema\",() =>{\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"})\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}?name={{name}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{name}}"
+								}
+							]
+						}
+					},
+					"response": []
 				},
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"helper.checkStatus(200, pm, responseBody);\r",
-							"\r",
-							"const schema=\r",
-							"{\r",
-							"  \"type\": \"object\",\r",
-							"  \"properties\": {\r",
-							"    \"name\": {\r",
-							"      \"type\": \"string\"\r",
-							"    },\r",
-							"    \"gender\": {\r",
-							"      \"type\": \"string\"\r",
-							"    },\r",
-							"    \"probability\": {\r",
-							"      \"type\": \"number\"\r",
-							"    },\r",
-							"    \"count\": {\r",
-							"      \"type\": \"integer\"\r",
-							"    }\r",
-							"  },\r",
-							"  \"required\": [\r",
-							"    \"name\",\r",
-							"    \"gender\",\r",
-							"    \"probability\",\r",
-							"    \"count\"\r",
-							"  ],\r",
-							"  \"additionalProperties\":false\r",
-							"}\r",
-							"\r",
-							"pm.test(\"Validating schema\",() =>{\r",
-							"    pm.response.to.have.jsonSchema(schema);\r",
-							"})"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{base_url}}?name={{sample_name}}",
-					"host": [
-						"{{base_url}}"
-					],
-					"query": [
+					"name": "Verify Find Gender Name with Blank value -Validation",
+					"event": [
 						{
-							"key": "name",
-							"value": "{{sample_name}}"
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"name\",\"\" );\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"helper.checkStatus(422, pm, responseBody);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
-					]
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}?name={{name}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{name}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Find Gender Name without any paramer-Validation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"helper.checkStatus(422, pm, responseBody);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}",
+							"host": [
+								"{{base_url}}"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "FindGener Using Multiple names",
+			"item": [
+				{
+					"name": "Find Gender by passing Multiple Names",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.unset(\"queryParams\");\r",
+									"let randomNum= _.random (2,10)\r",
+									"//console.log(\"Count of random Names: \"+randomNum)\r",
+									"\r",
+									"let queryParams='';\r",
+									"let  Person= {\r",
+									"    name:[pm.variables.replaceIn('{{$randomFirstName}}'),pm.variables.replaceIn('{{$randomFirstName}}'),pm.variables.replaceIn('{{$randomFirstName}}'),pm.variables.replaceIn('{{$randomFirstName}}'),pm.variables.replaceIn('{{$randomFirstName}}'),pm.variables.replaceIn('{{$randomFirstName}}'),pm.variables.replaceIn('{{$randomFirstName}}'),pm.variables.replaceIn('{{$randomFirstName}}'),pm.variables.replaceIn('{{$randomFirstName}}'),pm.variables.replaceIn('{{$randomFirstName}}')]\r",
+									"}\r",
+									"\r",
+									"queryParams='?'\r",
+									"for (let i=0; i<randomNum;i++)\r",
+									"{\r",
+									"    j=i+1;\r",
+									"    if (j>=randomNum)\r",
+									"    queryParams=queryParams+'name[]='+Person.name[i]\r",
+									"    else\r",
+									"       queryParams=queryParams+'name[]='+Person.name[i]+'&'\r",
+									"}\r",
+									"  pm.collectionVariables.set(\"queryParams\",queryParams);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"helper.checkStatus(200, pm, responseBody);\r",
+									"helper.checkGenderCount(pm, responseBody) "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}{{queryParams}}",
+							"host": [
+								"{{base_url}}{{queryParams}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Find Gender by passing Multiple Names-Validation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.unset(\"queryParams\");\r",
+									"let randomNum= _.random (2,10)\r",
+									"console.log(\"Count of random Names: \"+randomNum)\r",
+									"\r",
+									"let queryParams='';\r",
+									"let  Person= {\r",
+									"    name:[pm.variables.replaceIn('{{$randomFirstName}}'),pm.variables.replaceIn('{{$randomFirstName}}'),pm.variables.replaceIn('{{$randomFirstName}}'),pm.variables.replaceIn('{{$randomFirstName}}'),pm.variables.replaceIn('{{$randomFirstName}}'),pm.variables.replaceIn('{{$randomFirstName}}'),pm.variables.replaceIn('{{$randomFirstName}}'),pm.variables.replaceIn('{{$randomFirstName}}'),pm.variables.replaceIn('{{$randomFirstName}}'),pm.variables.replaceIn('{{$randomFirstName}}')]\r",
+									"}\r",
+									"\r",
+									"queryParams='?'\r",
+									"for (let i=0; i<randomNum;i++)\r",
+									"{\r",
+									"    j=i+1;\r",
+									"    if (j>=randomNum)\r",
+									"    queryParams=queryParams+'name[]='+Person.name[i]+'&'\r",
+									"    else\r",
+									"       queryParams=queryParams+'name[]='+Person.name[i]\r",
+									"}\r",
+									"  pm.collectionVariables.set(\"queryParams\",queryParams);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"helper.checkStatus(200, pm, responseBody);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}{{queryParams}}",
+							"host": [
+								"{{base_url}}{{queryParams}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Find Gender by Name and Country",
+			"item": [
+				{
+					"name": "Find Gender by Name and Country Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"helper.checkStatus(200, pm, responseBody);\r",
+									"helper.logGenderdetails(pm, responseBody) ;\r",
+									"\r",
+									"\r",
+									"// pm.test(\"Body contains number of ramen searches\", function () {\r",
+									"//     pm.expect(pm.response.text()).to.include(pm.iterationData.get(\"Name\"));\r",
+									"//     pm.expect(pm.response.json())\r",
+									"//     console.log(\"Number of ramen searches to be sent: \" + pm.iterationData.get(\"Name\"));\r",
+									"   \r",
+									"// });\r",
+									"\r",
+									"pm.test(\"Validate request with no localization. \", function () {\r",
+									"        var jsonData = pm.response.json();\r",
+									"    let localization_Status= pm.environment.get(\"localizationStatus\");\r",
+									"  \r",
+									"    if (localization_Status==\"true\")\r",
+									"    {\r",
+									"        const reqObject = {\r",
+									"                url: pm.environment.get(\"base_url\")+'?name='+pm.collectionVariables.get(\"name\"),\r",
+									"                method: 'GET',\r",
+									"                header: {\r",
+									"                         'Content-Type': 'application/json'\r",
+									"                     }\r",
+									"                }\r",
+									"  \r",
+									"        pm.sendRequest(reqObject, (err, res) => {\r",
+									"                var localization_jsondata = res.json()\r",
+									"                console.log(\"Gender:\"+ localization_jsondata.gender + \" Count: \"+localization_jsondata.count);  \r",
+									"\r",
+									"                     });    \r",
+									"\r",
+									"    }\r",
+									"\r",
+									"});\r",
+									"pm.collectionVariables.unset(\"name\");\r",
+									"pm.collectionVariables.unset(\"country\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//pm.collectionVariables.set(\"name\", \"dfgdgd\");\r",
+									"//pm.collectionVariables.set(\"country\", \"GB\");\r",
+									"pm.collectionVariables.set(\"name\", pm.iterationData.get(\"Name\"));\r",
+									"pm.collectionVariables.set(\"country\", pm.iterationData.get(\"Country\"));\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}?name={{name}}&country_id={{country}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{name}}"
+								},
+								{
+									"key": "country_id",
+									"value": "{{country}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Find Gender by Name and Country Id queriparameter-Validation Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"helper.checkStatus(422, pm, responseBody);\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//pm.collectionVariables.set(\"name\", \"dfgdgd\");\r",
+									"//pm.collectionVariables.set(\"country\", \"GB\");\r",
+									"pm.collectionVariables.unset(\"variable_key\");\r",
+									"pm.collectionVariables.set(\"name\", pm.iterationData.get(\"Name\"));\r",
+									"pm.collectionVariables.set(\"country\",pm.iterationData.get(\"Country\"));\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}?Name={{name}}&Country_id={{country}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "{{name}}"
+								},
+								{
+									"key": "Country_id",
+									"value": "{{country}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
@@ -95,10 +454,42 @@
 					"            var resp = JSON.parse(responseBody);",
 					"            throw new Error(\"Unexpected response: \" + JSON.stringify(resp));",
 					"        }",
-					"    }",
+					"    },",
+					"",
+					"    logGenderdetails(pm, responseBody) {",
+					"        pm.environment.unset(\"localizationStatus\");",
+					"        var jsonData = JSON.parse(responseBody);",
+					"         if(jsonData.gender == null || jsonData.count <=100)",
+					"            {",
+					"              console.log(\"Count is very low or gender is null\"+\" Gender: \"+ jsonData.gender + \" Count: \"+jsonData.count);",
+					"                pm.environment.set(\"localizationStatus\", \"true\");",
+					"            }",
+					"            else ",
+					"                {console.log(\"Gender:\"+ jsonData.gender + \" Count: \"+jsonData.count);  ",
+					"                pm.environment.set(\"localizationStatus\", \"false\");",
+					"                }",
+					"    },",
+					"",
 					"   ",
+					"    checkGenderCount(pm, responseBody) {",
+					"        var jsonData = JSON.parse(responseBody);",
+					"        for (var key in jsonData) {",
+					"            ",
+					"            if(jsonData[key].gender == null || jsonData[key].count <=100)",
+					"            {",
+					"              console.log(\"Count is very low or gender is null\"+\" Gender: \"+ jsonData[key].gender + \" Count: \"+jsonData[key].count);",
+					"                ",
+					"            }",
+					"            else",
+					"            {",
+					"                    console.log(\"Gender:\"+ jsonData[key].gender + \" Count: \"+jsonData[key].count);  ",
+					"            }",
+					"",
+					"         }",
+					"    }",
 					"",
 					"};",
+					"",
 					"",
 					""
 				]
@@ -112,6 +503,24 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "randomNum",
+			"value": ""
+		},
+		{
+			"key": "queryParams",
+			"value": ""
+		},
+		{
+			"key": "name",
+			"value": ""
+		},
+		{
+			"key": "country",
+			"value": ""
 		}
 	]
 }

@@ -8,4 +8,4 @@ newman_tests:
     entrypoint: [""]
   script:
     - newman --version
-    - newman run ./tests/TestAssessment.postman_collection.json -e ./tests/TestAssessment.postman_environment.json
+    - newman run ./tests/TestAssessment.postman_collection.json -e ./tests/TestAssessment.postman_environment.json -d "./TestData.csv" --reporters cli,htmlextra --reporter-htmlextra-export testReport.html
