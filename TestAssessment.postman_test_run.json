@@ -1,0 +1,330 @@
+{
+	"id": "d58f2506-5aaa-4817-aa01-fffb09281bf6",
+	"name": "TestAssessment",
+	"timestamp": "2022-02-20T22:39:58.589Z",
+	"collection_id": "10837797-8c0d5798-e10e-4493-8977-5a3a01f8ec88",
+	"folder_id": 0,
+	"environment_id": "10837797-4f67d26d-a468-45df-8505-1cf601b7d7af",
+	"totalPass": 36,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "f02c3176-379a-4837-8f1a-48c9e26b5c7a",
+			"name": "Find Gender Name",
+			"time": 100,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code must be 200": true,
+				"Validating schema": true
+			},
+			"testPassFailCounts": {
+				"Status code must be 200": {
+					"pass": 4,
+					"fail": 0
+				},
+				"Validating schema": {
+					"pass": 4,
+					"fail": 0
+				}
+			},
+			"times": [
+				275,
+				96,
+				95,
+				100
+			],
+			"allTests": [
+				{
+					"Status code must be 200": true,
+					"Validating schema": true
+				},
+				{
+					"Status code must be 200": true,
+					"Validating schema": true
+				},
+				{
+					"Status code must be 200": true,
+					"Validating schema": true
+				},
+				{
+					"Status code must be 200": true,
+					"Validating schema": true
+				}
+			]
+		},
+		{
+			"id": "092e7fa0-3e95-4492-be10-6f5e8f1a289e",
+			"name": "Verify Find Gender Name with Blank value -Validation",
+			"time": 90,
+			"responseCode": {
+				"code": 422,
+				"name": "Unprocessable Entity"
+			},
+			"tests": {
+				"Status code must be 422": true
+			},
+			"testPassFailCounts": {
+				"Status code must be 422": {
+					"pass": 4,
+					"fail": 0
+				}
+			},
+			"times": [
+				91,
+				399,
+				95,
+				90
+			],
+			"allTests": [
+				{
+					"Status code must be 422": true
+				},
+				{
+					"Status code must be 422": true
+				},
+				{
+					"Status code must be 422": true
+				},
+				{
+					"Status code must be 422": true
+				}
+			]
+		},
+		{
+			"id": "33ec8662-8544-434c-a898-c0177aabfe1d",
+			"name": "Verify Find Gender Name without any paramer-Validation",
+			"time": 89,
+			"responseCode": {
+				"code": 422,
+				"name": "Unprocessable Entity"
+			},
+			"tests": {
+				"Status code must be 422": true
+			},
+			"testPassFailCounts": {
+				"Status code must be 422": {
+					"pass": 4,
+					"fail": 0
+				}
+			},
+			"times": [
+				89,
+				89,
+				105,
+				89
+			],
+			"allTests": [
+				{
+					"Status code must be 422": true
+				},
+				{
+					"Status code must be 422": true
+				},
+				{
+					"Status code must be 422": true
+				},
+				{
+					"Status code must be 422": true
+				}
+			]
+		},
+		{
+			"id": "21880368-8208-4187-a22b-c40a50ff0213",
+			"name": "Find Gender by passing Multiple Names",
+			"time": 100,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code must be 200": true
+			},
+			"testPassFailCounts": {
+				"Status code must be 200": {
+					"pass": 4,
+					"fail": 0
+				}
+			},
+			"times": [
+				92,
+				103,
+				112,
+				100
+			],
+			"allTests": [
+				{
+					"Status code must be 200": true
+				},
+				{
+					"Status code must be 200": true
+				},
+				{
+					"Status code must be 200": true
+				},
+				{
+					"Status code must be 200": true
+				}
+			]
+		},
+		{
+			"id": "399c4c5d-be55-4087-91b5-841883901336",
+			"name": "Verify Find Gender by passing Multiple Names-Validation",
+			"time": 98,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code must be 200": true
+			},
+			"testPassFailCounts": {
+				"Status code must be 200": {
+					"pass": 4,
+					"fail": 0
+				}
+			},
+			"times": [
+				89,
+				95,
+				94,
+				98
+			],
+			"allTests": [
+				{
+					"Status code must be 200": true
+				},
+				{
+					"Status code must be 200": true
+				},
+				{
+					"Status code must be 200": true
+				},
+				{
+					"Status code must be 200": true
+				}
+			]
+		},
+		{
+			"id": "937f5e9a-57c2-4bab-9cdd-28dc3eb65716",
+			"name": "Find Gender by Name and Country Id",
+			"time": 95,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code must be 200": true,
+				"Validate request with no localization. ": true
+			},
+			"testPassFailCounts": {
+				"Status code must be 200": {
+					"pass": 4,
+					"fail": 0
+				},
+				"Validate request with no localization. ": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				88,
+				104,
+				96,
+				95
+			],
+			"allTests": [
+				{
+					"Status code must be 200": true,
+					"Validate request with no localization. ": true
+				},
+				{
+					"Status code must be 200": true,
+					"Validate request with no localization. ": true
+				},
+				{
+					"Status code must be 200": true,
+					"Validate request with no localization. ": true
+				},
+				{
+					"Status code must be 200": true,
+					"Validate request with no localization. ": true
+				}
+			]
+		},
+		{
+			"id": "055f921a-d6f6-476d-a34d-14548bf15e8b",
+			"name": "Verify Find Gender by Name and Country Id queriparameter-Validation",
+			"time": 92,
+			"responseCode": {
+				"code": 422,
+				"name": "Unprocessable Entity"
+			},
+			"tests": {
+				"Status code must be 422": true
+			},
+			"testPassFailCounts": {
+				"Status code must be 422": {
+					"pass": 4,
+					"fail": 0
+				}
+			},
+			"times": [
+				86,
+				90,
+				94,
+				92
+			],
+			"allTests": [
+				{
+					"Status code must be 422": true
+				},
+				{
+					"Status code must be 422": true
+				},
+				{
+					"Status code must be 422": true
+				},
+				{
+					"Status code must be 422": true
+				}
+			]
+		}
+	],
+	"count": 4,
+	"totalTime": 3141,
+	"collection": {
+		"requests": [
+			{
+				"id": "f02c3176-379a-4837-8f1a-48c9e26b5c7a",
+				"method": "GET"
+			},
+			{
+				"id": "092e7fa0-3e95-4492-be10-6f5e8f1a289e",
+				"method": "GET"
+			},
+			{
+				"id": "33ec8662-8544-434c-a898-c0177aabfe1d",
+				"method": "GET"
+			},
+			{
+				"id": "21880368-8208-4187-a22b-c40a50ff0213",
+				"method": "GET"
+			},
+			{
+				"id": "399c4c5d-be55-4087-91b5-841883901336",
+				"method": "GET"
+			},
+			{
+				"id": "937f5e9a-57c2-4bab-9cdd-28dc3eb65716",
+				"method": "GET"
+			},
+			{
+				"id": "055f921a-d6f6-476d-a34d-14548bf15e8b",
+				"method": "GET"
+			}
+		]
+	}
+}
