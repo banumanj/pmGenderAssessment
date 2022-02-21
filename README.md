@@ -24,13 +24,14 @@ Files for use in the Postman Collection Runner
 ![img.png](img.png)
 
 #Test Report 
-![image](https://user-images.githubusercontent.com/61667828/154867891-2d902849-f1c9-4f73-8453-9723112fb80b.png)
-
+![image](https://user-images.githubusercontent.com/61667828/154950859-5b8265b4-3cc1-4eae-9b87-e53d97274e84.png)
+ 
 #Interactive report :
 Download and open this url 
 https://github.com/banumanj/pmGenderAssessment/blob/main/testReport.html
 
 #Test Execution recoding video :
+This video includes test with less itteration on passing data file with only 4 Names 
 Download and open the video links   
 https://github.com/banumanj/pmGenderAssessment/blob/main/Test%20results%20fom%20command%20line%20.webm
 https://github.com/banumanj/pmGenderAssessment/blob/main/Postman%20UI%20%20test-recording.webm
